@@ -1,0 +1,22 @@
+{
+  "name": "randm",
+  "version": "0.1.2",
+  "main": "randm.js",
+  "description": "A simple random number generator",
+  "author": "Chris Clarke",
+  "license": "MIT",
+  "repository": "git://github.com/chrisprobably/randm.git",
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "dependencies": {
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "randm.js"
+  ],
+  "devDependencies": {
+    "tap": "^10.1.2"
+  }
+}
