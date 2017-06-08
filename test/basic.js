@@ -7,6 +7,21 @@ t.test('generates random number', function (t) {
   t.end()
 })
 
+t.test('generates random boolean', function (t) {
+  const rndBoolean = randm.bool();
+  console.log('rndm.bool()', rndBoolean);
+  t.type(rndBoolean, 'boolean');
+  t.end()
+})
+
+t.test('generates coin flip', function (t) {
+  const coinFlip = randm.coinFlip();
+  console.log('rndm.coinFlip()', coinFlip);
+  t.type(coinFlip, 'string');
+  t.matches(coinFlip, /heads|tails/);
+  t.end()
+})
+
 t.test('generates random number between two values', function (t) {
   t.equal(1, randm.between(1, 1));
   t.equal(-99, randm.between(-99, -99));
