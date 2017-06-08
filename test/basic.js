@@ -39,3 +39,14 @@ t.test('generates random int between two values', function (t) {
   console.log('randm.int.between(0, 10)', randm.int.between(0, 10));
   t.end()
 })
+
+t.test('random ints are integers', function (t) {
+  t.ok(Number.isInteger(randm.int.between(1, 100)));
+  t.end()
+})
+
+t.test('random negative ints are integers', function (t) {
+  t.ok(Number.isInteger(randm.int.between(-100, 0)));
+  t.end()
+})
+
