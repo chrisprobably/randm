@@ -138,3 +138,26 @@ t.test('random negative ints are integers', function (t) {
   t.end()
 })
 
+t.test('chooses a random value from an array', function (t) {
+  const val = randm.from(['foo', 'bar', 'qux']);
+  console.log("randm.from(['foo', 'bar', 'qux'])", val);
+  t.type(val, 'string');
+  t.matches(val, /foo|bar|qux/);
+  t.end()
+})
+
+t.test('chooses a random number from an array', function (t) {
+  const val = randm.from([88, 626, 954]);
+  t.type(val, 'number');
+  t.matches(val, /88|626|954/);
+  t.end()
+})
+
+t.test('always returns the same value when calling from on a single element array', function (t) {
+  const val = randm.from(['narnia']);
+  t.equal(val, 'narnia');
+  t.end()
+})
+
+
+

@@ -9,6 +9,8 @@ Simple random number generator for JS / Node.
  * `randm.between(-10, 10)` - returns a random float between -10 and 10
  * `randm.int.between(2, 10)` - returns a random integer between 2 and 10
  * `randm.oneIn(10)` - one in 10 chance that this returns true, otherwise it returns false
+ * `randm.from(['foo', 'bar', 'qux'])` - returns a random value from an array, in this case 'foo', 'bar' or 'qux'
+
 
 ### Misc
 
