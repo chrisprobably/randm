@@ -10,7 +10,7 @@ Simple random number generator for JS / Node.
  * `randm.int.between(2, 10)` - returns a random integer between 2 and 10
  * `randm.oneIn(10)` - one in 10 chance that this returns true, otherwise it returns false
  * `randm.from(['foo', 'bar', 'qux'])` - returns a random value from an array, in this case 'foo', 'bar' or 'qux'
- * `randm.happens(2).outOf(5)` - returns a true 2 out of 5 times
+ * `randm.happens(2).outOf(5)` - returns true 2 out of 5 times
  * `randm.percentageChance(95)` - returns true 95% of the time
 
 
