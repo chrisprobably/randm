@@ -159,5 +159,28 @@ t.test('always returns the same value when calling from on a single element arra
   t.end()
 })
 
+t.test('happens one out of one is always true', function (t) {
+  const val = randm.happens(1).outOf(1);
+  t.equal(val, true);
+  t.end()
+})
+
+t.test('happens zero out of ten is always false', function (t) {
+  const val = randm.happens(0).outOf(10);
+  t.equal(val, false);
+  t.end()
+})
+
+t.test('perecentageChance of 100% always returns true', function (t) {
+  const val = randm.percentageChance(100);
+  t.equal(val, true);
+  t.end()
+})
+
+t.test('perecentageChance of 0% always returns false', function (t) {
+  const val = randm.percentageChance(0);
+  t.equal(val, false);
+  t.end()
+})
 
 

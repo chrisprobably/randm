@@ -8,6 +8,12 @@ const randm = {
   between: (x, y) => (randm.any() * (y - x)) + x,
   oneIn: (n) => randm.int.between(1, n) === n,
   from: (arry) => arry[randm.int.between(0, arry.length-1)],
+  happens: (times) => ({
+    outOf: (total) => {
+      return Array.from(Array(times).keys()).includes(randm.int.between(0, total - 1))
+    }
+  }),
+  percentageChance: (percentage) => randm.happens(Math.abs(percentage)).outOf(100),
   customDiceRoll: (die) => {
   	if (! DIE.test(die)) throw new Error('Invalid die specifier, try one of these: d6, d3, 2d4');
   	const [ , count = 1, size, modifier = 0 ] = DIE.exec(die);
