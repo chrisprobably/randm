@@ -1,8 +1,25 @@
 const DIE = /(\d+)?d(\d+)([+|-]\d+)?/;
 
-const isMocked = (funcName) => randm.next[funcName].returnValues.length > 0;
+const isMocked = (mock, funcName) => mock[funcName].returnValues.length > 0;
 
-const mockedValue = (funcName) => randm.next[funcName].returnValues.pop();
+const mockedValue = (mock, funcName) => mock[funcName].returnValues.shift();
+
+const diceRollDetails = (die) => {
+  if (!DIE.test(die))
+    throw new Error("Invalid die specifier, try one of these: d6, d3, 2d4");
+  const rolls = [];
+  const [, count = 1, size, modifier = 0] = DIE.exec(die);
+  for (let i = 0; i < count; i++) {
+    rolls.push(randm.int.between(1, size));
+  }
+  const unmodifiedTotal = rolls.reduce((sum, roll) => sum + roll);
+  return {
+    rolls,
+    unmodifiedTotal,
+    modifier,
+    total: unmodifiedTotal + parseInt(modifier),
+  };
+};
 
 const randm = {
   any: () => Math.random(),
@@ -17,22 +34,7 @@ const randm = {
     isGreaterThanOrEqual: (target) => randm.diceRoll(die) >= target,
     isLessThan: (target) => randm.diceRoll(die) < target,
     isLessThanOrEqual: (target) => randm.diceRoll(die) <= target,
-    rolls: () => {
-      if (!DIE.test(die))
-        throw new Error("Invalid die specifier, try one of these: d6, d3, 2d4");
-      const rolls = [];
-      const [, count = 1, size, modifier = 0] = DIE.exec(die);
-      for (let i = 0; i < count; i++) {
-        rolls.push(randm.int.between(1, size));
-      }
-      const unmodifiedTotal = rolls.reduce((sum, roll) => sum + roll);
-      return {
-        rolls,
-        unmodifiedTotal,
-        modifier,
-        total: unmodifiedTotal + parseInt(modifier),
-      };
-    },
+    rolls: () => diceRollDetails(die),
   }),
   between: (x, y) => randm.any() * (y - x) + x,
   oneIn: (n) => randm.int.between(1, n) === n,
@@ -50,18 +52,32 @@ randm.int = {
   between: (x, y) => Math.round(randm.any() * (y - x)) + x,
 };
 
-randm.next = {};
+const resetMockedReturnValues = (mock) =>
+  Object.keys(mock).forEach((prop) => (mock[prop].returnValues = []));
 
-Object.keys(randm).forEach((prop) => {
-  if (typeof randm[prop] === "function") {
-    const originalFunc = randm[prop];
-    randm.next[prop] = {
-      returnValues: [],
-      returns: (val) => (randm.next[prop].returnValues = [val]),
-    };
-    randm[prop] = (...args) =>
-      isMocked(prop) ? mockedValue(prop) : originalFunc(...args);
-  }
-});
+randm.next = {
+  int: {},
+  reset: () => {
+    resetMockedReturnValues(randm.next);
+    resetMockedReturnValues(randm.next.int);
+  },
+};
+
+const addMockingToFunctions = (obj, mock) => {
+  Object.keys(obj).forEach((prop) => {
+    if (typeof obj[prop] === "function") {
+      const originalFunc = obj[prop];
+      mock[prop] = {
+        returnValues: [],
+        returns: (...vals) => (mock[prop].returnValues = [...vals]),
+      };
+      obj[prop] = (...args) =>
+        isMocked(mock, prop) ? mockedValue(mock, prop) : originalFunc(...args);
+    }
+  });
+};
+
+addMockingToFunctions(randm, randm.next);
+addMockingToFunctions(randm.int, randm.next.int);
 
 module.exports = randm;

@@ -195,6 +195,16 @@ t.test("perecentageChance of 0% always returns false", function (t) {
   t.end();
 });
 
+t.test(
+  "randm.next.int.between sets the next randm.int.between result",
+  function (t) {
+    randm.next.int.between.returns(33);
+    const val = randm.int.between(5, 8);
+    t.equal(val, 33);
+    t.end();
+  }
+);
+
 t.test("next sets the next diceRoll result", function (t) {
   randm.next.diceRoll.returns(3);
   const val = randm.diceRoll();
@@ -209,6 +219,30 @@ t.test(
     t.equal(randm.diceRoll(), 99);
     const subsequentRoll = randm.diceRoll();
     t.notEqual(randm.diceRoll(), 99);
+    t.ok(subsequentRoll >= 1 && subsequentRoll <= 6);
+    t.end();
+  }
+);
+
+t.test(
+  "next sets the next diceRoll results in order when passed a list of arguments",
+  function (t) {
+    randm.next.diceRoll.returns(100, 200, 300);
+    t.equal(randm.diceRoll(), 100);
+    t.equal(randm.diceRoll(), 200);
+    t.equal(randm.diceRoll(), 300);
+    t.end();
+  }
+);
+
+t.test(
+  "next sets the next diceRoll results when passed multiple arguments but does not affect the subsequent one",
+  function (t) {
+    randm.next.diceRoll.returns(100, 200, 300);
+    t.equal(randm.diceRoll(), 100);
+    t.equal(randm.diceRoll(), 200);
+    t.equal(randm.diceRoll(), 300);
+    const subsequentRoll = randm.diceRoll();
     t.ok(subsequentRoll >= 1 && subsequentRoll <= 6);
     t.end();
   }
@@ -385,7 +419,10 @@ t.test(
 t.test(
   "diceRollOf().rolls() returns an object containing the total and the individual dice rolls",
   function (t) {
-    const { total, rolls } = randm.diceRollOf("3d6+2").rolls();
+    randm.next.int.between.returns(3);
+    const { total, rolls } = randm.diceRollOf("d6+2").rolls();
+    t.equal(total, 5);
+    t.same(rolls, [3]);
     console.log(
       'randm.diceRollOf("3d6+2").rolls()',
       randm.diceRollOf("3d6+2").rolls()
@@ -393,3 +430,92 @@ t.test(
     t.end();
   }
 );
+
+t.test(
+  "diceRollOf().rolls() returns an object containing the total and the individual dice rolls with multiple die",
+  function (t) {
+    randm.next.int.between.returns(1, 2, 3);
+    const { total, rolls } = randm.diceRollOf("3d6+2").rolls();
+    t.equal(total, 8);
+    t.same(rolls, [1, 2, 3]);
+    t.end();
+  }
+);
+
+t.test(
+  "diceRollOf().rolls() returns an object containing the total and the individual dice rolls with multiple die and no modifier",
+  function (t) {
+    randm.next.int.between.returns(2, 3);
+    const { total, rolls } = randm.diceRollOf("2d3").rolls();
+    t.equal(total, 5);
+    t.same(rolls, [2, 3]);
+    t.end();
+  }
+);
+
+t.test(
+  "diceRollOf().rolls() returns an object containing the modifier",
+  function (t) {
+    randm.next.int.between.returns(2, 3);
+    const { modifier } = randm.diceRollOf("d6+8").rolls();
+    t.equal(modifier, "+8");
+    t.end();
+  }
+);
+
+t.test(
+  "diceRollOf().rolls() returns an object containing the unmodified total",
+  function (t) {
+    randm.next.int.between.returns(3, 4);
+    const { unmodifiedTotal, modifier, total } = randm
+      .diceRollOf("2d6+1")
+      .rolls();
+    t.equal(unmodifiedTotal, 7);
+    t.equal(modifier, "+1");
+    t.equal(total, 8);
+    t.end();
+  }
+);
+
+t.test(
+  "randm.next.reset() clears any mocked values from randm.int.between",
+  function (t) {
+    randm.next.int.between.returns(99);
+    randm.next.reset();
+    const val = randm.int.between(22, 22);
+    t.equal(val, 22);
+    t.end();
+  }
+);
+
+t.test(
+  "randm.next.reset() clears any mocked values from randm.diceRoll",
+  function (t) {
+    randm.next.diceRoll.returns(99);
+    randm.next.reset();
+    const val = randm.diceRoll("d1");
+    t.equal(val, 1);
+    t.end();
+  }
+);
+
+t.test(
+  "randm.next.reset() clears multiple mocked values from randm.diceRoll",
+  function (t) {
+    randm.next.diceRoll.returns(99, 100, 101);
+    randm.next.reset();
+    const val = randm.diceRoll("d1");
+    t.equal(val, 1);
+    t.end();
+  }
+);
+
+t.test("randm.next can be used after a randm.next.reset()", function (t) {
+  randm.next.diceRoll.returns(99);
+  randm.next.reset();
+  randm.next.diceRoll.returns(101);
+
+  const val = randm.diceRoll("d1");
+  t.equal(val, 101);
+  t.end();
+});
