@@ -1,3 +1,7 @@
+![Node.js CI](https://github.com/chrisprobably/randm/workflows/Node.js%20CI/badge.svg)
+
+# randm
+
 Simple random number generator for JS / Node.
 
 ## API
