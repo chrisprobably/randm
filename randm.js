@@ -37,6 +37,11 @@ const randm = {
     rolls: () => diceRollDetails(die),
     roll: () => randm.diceRollOf(die).rolls(),
   }),
+  artilleryDie: () => randm.from([2, 4, 6, 8, 10, randm.artilleryDie.MISS]),
+  scatterDie: () => ({
+    direction: randm.between(0, 359),
+    isHit: randm.oneIn(3),
+  }),
   between: (x, y) => randm.any() * (y - x) + x,
   oneIn: (n) => randm.int.between(1, n) === n,
   from: (arry) => arry[randm.int.between(0, arry.length - 1)],
@@ -80,5 +85,7 @@ const addMockingToFunctions = (obj, mock) => {
 
 addMockingToFunctions(randm, randm.next);
 addMockingToFunctions(randm.int, randm.next.int);
+
+randm.artilleryDie.MISS = "MISS";
 
 module.exports = randm;

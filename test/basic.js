@@ -42,6 +42,31 @@ t.test("randm.oneIn(1) always returns true", function (t) {
   t.end();
 });
 
+t.test("randm.artilleryDie() returns one of 2, 4, 6, 8, 10, or MISS", function (
+  t
+) {
+  const val = randm.artilleryDie();
+  t.matches(val, /2|4|6|8|10|MISS/);
+  t.end();
+});
+
+t.test("randm.artilleryDie.MISS is equal to a string of 'MISS'", function (t) {
+  console.log("randm.artilleryDie()", randm.artilleryDie());
+  t.equal(randm.artilleryDie.MISS, "MISS");
+  t.end();
+});
+
+t.test(
+  "randm.scatterDie() returns a direction from 0 to 359 degrees and a boolean isHit result",
+  function (t) {
+    const { direction, isHit } = randm.scatterDie();
+    console.log("randm.scatterDie()", randm.scatterDie());
+    t.ok(direction >= 0 && direction <= 359);
+    t.type(isHit, "boolean");
+    t.end();
+  }
+);
+
 t.test("generates dice roll with a 6-sided die given no arguments", function (
   t
 ) {

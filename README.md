@@ -58,8 +58,26 @@ yarn add randm
        total: 6 
      }
      ```
- * `randm.diceRollOf('3d6+2').roll()` - `roll()` is a synonym of `rolls()`. 
-     
+ * `randm.diceRollOf('3d6+2').roll()` - `roll()` is a synonym of `rolls()`.      
+ * `randm.scatterDie()` - simulates a six-sided die with four faces showing an arrow, and two faces showing a hit marker. It returns an object containing:
+   * `direction` - a direction specified as a float from 0 to 359 degrees
+   * `isHit` - true if a hit marker was rolled (2 in 6 chance)
+   * Example: `randm.scatterDie()`:
+     ```js
+     { 
+       direction: 343.17056492532487, 
+       isHit: true
+     }
+     ```    
+ * `randm.artilleryDie()` - simulates a six-sided die with the following possible values: 2, 4, 6, 8, 10, or MISS. 
+   * `randm.artilleryDie.MISS` can be used for comparison
+   * Example: `randm.artilleryDie()`:
+     ```js
+     const artilleryRoll = randm.artilleryDie();
+     if (artilleryRoll === randm.artilleryDie.MISS) {
+       // handle miss...
+     }
+     ```   
  
 ### Mocking
 
