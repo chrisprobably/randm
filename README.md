@@ -1,4 +1,4 @@
-# randm
+# 🎲 randm
 ![release](https://github.com/chrisprobably/randm/workflows/release/badge.svg) [![npm](https://img.shields.io/npm/v/randm)](https://www.npmjs.com/package/randm)
 
 Simple random number generator for JS / Node.
