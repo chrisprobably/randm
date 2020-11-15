@@ -57,7 +57,9 @@ yarn add randm
        modifier: 0, 
        total: 6 
      }
-     ```  
+     ```
+ * `randm.diceRollOf('3d6+2').roll()` - `roll()` is a synonym of `rolls()`. 
+     
  
 ### Mocking
 

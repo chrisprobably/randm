@@ -1,6 +1,11 @@
 var randm = require("../randm");
 var t = require("tap");
 
+t.beforeEach((done) => {
+  randm.next.reset();
+  done();
+});
+
 t.test("generates random number", function (t) {
   const rndNum = randm.any();
   console.log("randm.any()", rndNum);
@@ -430,6 +435,15 @@ t.test(
     t.end();
   }
 );
+
+t.test("diceRollOf().roll() is a synonym of diceRollOf().rolls()", function (
+  t
+) {
+  const { total: rollsTotal } = randm.diceRollOf("d1+2").rolls();
+  const { total: rollTotal } = randm.diceRollOf("d1+2").roll();
+  t.equal(rollsTotal, rollTotal);
+  t.end();
+});
 
 t.test(
   "diceRollOf().rolls() returns an object containing the total and the individual dice rolls with multiple die",

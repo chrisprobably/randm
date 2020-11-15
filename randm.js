@@ -35,6 +35,7 @@ const randm = {
     isLessThan: (target) => randm.diceRoll(die) < target,
     isLessThanOrEqual: (target) => randm.diceRoll(die) <= target,
     rolls: () => diceRollDetails(die),
+    roll: () => randm.diceRollOf(die).rolls(),
   }),
   between: (x, y) => randm.any() * (y - x) + x,
   oneIn: (n) => randm.int.between(1, n) === n,
