@@ -6,6 +6,7 @@
   "author": "Chris Clarke",
   "license": "MIT",
   "repository": "git://github.com/chrisprobably/randm.git",
+  "keywords": ["random", "rng", "dice"],
   "scripts": {
     "test": "tap test/*.js"
   },
