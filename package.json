@@ -6,9 +6,14 @@
   "author": "Chris Clarke",
   "license": "MIT",
   "repository": "git://github.com/chrisprobably/randm.git",
-  "keywords": ["random", "rng", "dice"],
+  "keywords": [
+    "random",
+    "rng",
+    "dice"
+  ],
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "tap test/*.js",
+    "codecov": "tap --coverage-report=text-lcov | codecov"
   },
   "dependencies": {},
   "files": [
@@ -17,8 +22,9 @@
     "randm.js"
   ],
   "devDependencies": {
+    "codecov": "^3.8.1",
     "prettier": "^2.1.2",
     "semantic-release": "^17.2.2",
-    "tap": "^10.1.2"
+    "tap": "^14.10.8"
   }
 }
