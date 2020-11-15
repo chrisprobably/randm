@@ -1,6 +1,6 @@
 {
   "name": "randm",
-  "version": "0.5.2",
+  "version": "0.6.2",
   "main": "randm.js",
   "description": "A simple random number generator",
   "author": "Chris Clarke",
@@ -9,14 +9,14 @@
   "scripts": {
     "test": "tap test/*.js"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "files": [
     "LICENSE",
     "README.md",
     "randm.js"
   ],
   "devDependencies": {
+    "prettier": "^2.1.2",
     "tap": "^10.1.2"
   }
 }
