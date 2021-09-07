@@ -153,5 +153,7 @@ randm.diceRollOf('3d6+2').rolls();
 // }
 ```
 
+### Thankyou!
 
+Thanks for using randm.
 
