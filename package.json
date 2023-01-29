@@ -1,6 +1,6 @@
 {
   "name": "randm",
-  "version": "0.6.2",
+  "version": "0.0.0",
   "main": "randm.js",
   "description": "A simple random number generator",
   "author": "Chris Clarke",
