@@ -19,9 +19,9 @@ t.test("generates random boolean", function (t) {
 });
 
 t.test("generates coin flip", function (t) {
+  randm.next.bool.returns(true);
   let coinFlip = randm.coinFlip();
   console.log("randm.coinFlip()", coinFlip);
-  randm.next.bool.returns(true);
   t.type(coinFlip, "string");
   t.equal(coinFlip, "heads");
   randm.next.bool.returns(false);
