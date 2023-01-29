@@ -12,8 +12,7 @@
     "dice"
   ],
   "scripts": {
-    "test": "tap test/*.js",
-    "codecov": "tap --coverage-report=text-lcov | codecov"
+    "test": "tap test/*.js"
   },
   "dependencies": {},
   "files": [
@@ -22,8 +21,8 @@
     "randm.js"
   ],
   "devDependencies": {
-    "prettier": "^2.3.2",
+    "prettier": "^2.8.3",
     "semantic-release": "^17.4.7",
-    "tap": "^14.11.0"
+    "tap": "^16.3.4"
   }
 }

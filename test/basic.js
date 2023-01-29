@@ -1,9 +1,8 @@
 var randm = require("../randm");
 var t = require("tap");
 
-t.beforeEach((done) => {
+t.beforeEach(() => {
   randm.next.reset();
-  done();
 });
 
 t.test("generates random number", function (t) {
@@ -20,21 +19,27 @@ t.test("generates random boolean", function (t) {
 });
 
 t.test("generates coin flip", function (t) {
-  const coinFlip = randm.coinFlip();
+  let coinFlip = randm.coinFlip();
   console.log("randm.coinFlip()", coinFlip);
+  randm.next.bool.returns(true);
   t.type(coinFlip, "string");
-  t.matches(coinFlip, /heads|tails/);
+  t.equal(coinFlip, "heads");
+  randm.next.bool.returns(false);
+  coinFlip = randm.coinFlip();
+  t.type(coinFlip, "string");
+  t.equal(coinFlip, "tails");
   t.end();
 });
 
-t.test("generates a chance, which returns true on a one in N basis", function (
-  t
-) {
-  const chance = randm.oneIn(2);
-  t.type(chance, "boolean");
-  console.log("randm.oneIn(2)", chance);
-  t.end();
-});
+t.test(
+  "generates a chance, which returns true on a one in N basis",
+  function (t) {
+    const chance = randm.oneIn(2);
+    t.type(chance, "boolean");
+    console.log("randm.oneIn(2)", chance);
+    t.end();
+  }
+);
 
 t.test("randm.oneIn(1) always returns true", function (t) {
   const chance = randm.oneIn(1);
@@ -42,13 +47,14 @@ t.test("randm.oneIn(1) always returns true", function (t) {
   t.end();
 });
 
-t.test("randm.artilleryDie() returns one of 2, 4, 6, 8, 10, or MISS", function (
-  t
-) {
-  const val = randm.artilleryDie();
-  t.matches(val, /2|4|6|8|10|MISS/);
-  t.end();
-});
+t.test(
+  "randm.artilleryDie() returns one of 2, 4, 6, 8, 10, or MISS",
+  function (t) {
+    const val = randm.artilleryDie();
+    t.match(val, /2|4|6|8|10|MISS/);
+    t.end();
+  }
+);
 
 t.test("randm.artilleryDie.MISS is equal to a string of 'MISS'", function (t) {
   console.log("randm.artilleryDie()", randm.artilleryDie());
@@ -67,26 +73,27 @@ t.test(
   }
 );
 
-t.test("generates dice roll with a 6-sided die given no arguments", function (
-  t
-) {
-  const diceRoll = randm.diceRoll();
-  console.log("randm.diceRoll()", diceRoll);
-  t.matches(diceRoll, /[1-6]/);
+t.test(
+  "generates dice roll with a 6-sided die given no arguments",
+  function (t) {
+    const diceRoll = randm.diceRoll();
+    console.log("randm.diceRoll()", diceRoll);
+    t.match(diceRoll, /[1-6]/);
+    t.end();
+  }
+);
+
+t.test("generates dice roll with the passed die size", function (t) {
+  const diceRoll = randm.diceRoll("d3");
+  console.log('randm.diceRoll("d3")', diceRoll);
+  t.match(diceRoll, /[1-3]/);
   t.end();
 });
 
 t.test("generates dice roll with the passed die size", function (t) {
   const diceRoll = randm.diceRoll("d3");
   console.log('randm.diceRoll("d3")', diceRoll);
-  t.matches(diceRoll, /[1-3]/);
-  t.end();
-});
-
-t.test("generates dice roll with the passed die size", function (t) {
-  const diceRoll = randm.diceRoll("d3");
-  console.log('randm.diceRoll("d3")', diceRoll);
-  t.matches(diceRoll, /[1-3]/);
+  t.match(diceRoll, /[1-3]/);
   t.end();
 });
 
@@ -114,19 +121,20 @@ t.test("generates dice roll with a positive modifier", function (t) {
   t.end();
 });
 
-t.test("generates dice roll with a multi-digit positive modifier", function (
-  t
-) {
-  const diceRoll = randm.diceRoll("d1+22");
-  console.log('randm.diceRoll("d1+22")', diceRoll);
-  t.equal(23, diceRoll);
-  t.end();
-});
+t.test(
+  "generates dice roll with a multi-digit positive modifier",
+  function (t) {
+    const diceRoll = randm.diceRoll("d1+22");
+    console.log('randm.diceRoll("d1+22")', diceRoll);
+    t.equal(23, diceRoll);
+    t.end();
+  }
+);
 
 t.test("generates dice roll for d3+2", function (t) {
   const diceRoll = randm.diceRoll("d3+2");
   console.log('randm.diceRoll("d3+2")', diceRoll);
-  t.matches(diceRoll, /[3-5]/);
+  t.match(diceRoll, /[3-5]/);
   t.end();
 });
 
@@ -140,7 +148,7 @@ t.test("generates dice roll with a negative modifier", function (t) {
 t.test("generates dice roll with the passed 2d3", function (t) {
   const diceRoll = randm.diceRoll("2d3");
   console.log('randm.diceRoll("2d3")', diceRoll);
-  t.matches(diceRoll, /[2-6]/);
+  t.match(diceRoll, /[2-6]/);
   t.end();
 });
 
@@ -181,14 +189,14 @@ t.test("chooses a random value from an array", function (t) {
   const val = randm.from(["foo", "bar", "qux"]);
   console.log("randm.from(['foo', 'bar', 'qux'])", val);
   t.type(val, "string");
-  t.matches(val, /foo|bar|qux/);
+  t.match(val, /foo|bar|qux/);
   t.end();
 });
 
 t.test("chooses a random number from an array", function (t) {
   const val = randm.from([88, 626, 954]);
   t.type(val, "number");
-  t.matches(val, /88|626|954/);
+  t.match(val, /88|626|954/);
   t.end();
 });
 
@@ -248,7 +256,7 @@ t.test(
     randm.next.diceRoll.returns(99);
     t.equal(randm.diceRoll(), 99);
     const subsequentRoll = randm.diceRoll();
-    t.notEqual(randm.diceRoll(), 99);
+    t.not(randm.diceRoll(), 99);
     t.ok(subsequentRoll >= 1 && subsequentRoll <= 6);
     t.end();
   }
@@ -461,14 +469,15 @@ t.test(
   }
 );
 
-t.test("diceRollOf().roll() is a synonym of diceRollOf().rolls()", function (
-  t
-) {
-  const { total: rollsTotal } = randm.diceRollOf("d1+2").rolls();
-  const { total: rollTotal } = randm.diceRollOf("d1+2").roll();
-  t.equal(rollsTotal, rollTotal);
-  t.end();
-});
+t.test(
+  "diceRollOf().roll() is a synonym of diceRollOf().rolls()",
+  function (t) {
+    const { total: rollsTotal } = randm.diceRollOf("d1+2").rolls();
+    const { total: rollTotal } = randm.diceRollOf("d1+2").roll();
+    t.equal(rollsTotal, rollTotal);
+    t.end();
+  }
+);
 
 t.test(
   "diceRollOf().rolls() returns an object containing the total and the individual dice rolls with multiple die",
