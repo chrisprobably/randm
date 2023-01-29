@@ -11,6 +11,13 @@ t.test("generates random number", function (t) {
   t.end();
 });
 
+t.test("generates random date", function (t) {
+  const rndDate = randm.dateTime();
+  console.log("randm.dateTime()", rndDate);
+  t.type(rndDate, "Date");
+  t.end();
+});
+
 t.test("generates random boolean", function (t) {
   const rndBoolean = randm.bool();
   console.log("randm.bool()", rndBoolean);
@@ -172,6 +179,22 @@ t.test("generates random int between two values", function (t) {
   t.equal(0, randm.int.between(0, 0));
 
   console.log("randm.int.between(0, 10)", randm.int.between(0, 10));
+  t.end();
+});
+
+t.test("generates a random Date between two Dates", function (t) {
+  const timeNow = Date.now();
+  const threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
+
+  const randDate = randm.date.between(
+    new Date(timeNow - threeDaysInMillis),
+    new Date(timeNow)
+  );
+
+  console.log("randm.date.between(3 days ago, now)", randDate);
+  t.type(randDate, "Date");
+  t.ok(randDate.getTime() >= timeNow - threeDaysInMillis);
+  t.ok(randDate.getTime() <= timeNow);
   t.end();
 });
 

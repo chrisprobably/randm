@@ -29,6 +29,8 @@ yarn add randm
 - `randm.happens(2).outOf(5)` - returns true 2 out of 5 times
 - `randm.percentageChance(95)` - returns true 95% of the time
 - `randm.coinFlip()` - returns `heads` or `tails`
+- `randm.dateTime()` - returns a random `Date` with the time between epoch and now
+- `randm.date.between(new Date(1997, 0, 1), new Date(2000, 0, 1))` - returns a `Date` between January 1st, 1997 and January 1st 2000.
 
 ### Dice
 

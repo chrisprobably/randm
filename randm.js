@@ -25,6 +25,7 @@ const randm = {
   any: () => Math.random(),
   bool: () => !!randm.int.between(0, 1),
   coinFlip: () => (randm.bool() ? "heads" : "tails"),
+  dateTime: () => new Date(randm.int.between(0, Date.now())),
   diceRoll: (die) =>
     die ? randm.customDiceRoll(die) : randm.int.between(1, 6),
   diceRollBeats: (target) => randm.diceRoll() >= target,
@@ -56,6 +57,10 @@ const randm = {
 
 randm.int = {
   between: (x, y) => Math.round(randm.any() * (y - x)) + x,
+};
+
+randm.date = {
+  between: (x, y) => new Date(randm.int.between(x.getTime(), y.getTime())),
 };
 
 const resetMockedReturnValues = (mock) =>
