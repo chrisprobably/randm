@@ -2,8 +2,8 @@
   "name": "randm",
   "version": "0.0.0",
   "main": "randm.js",
-  "description": "A simple random number generator",
-  "author": "Chris Clarke",
+  "description": "Easy to use JS random generator for generating random numbers, dice rolls, dates etc... Small footprint (<1Kb gzipped) library with Typescript support that can be used in a browser or node environment.",
+  "author": "Chris Probably",
   "license": "MIT",
   "repository": "git://github.com/chrisprobably/randm.git",
   "keywords": [
@@ -24,7 +24,13 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "size-limit": [
+    {
+      "path": "./randm.js"
+    }
+  ],
   "devDependencies": {
+    "@size-limit/preset-small-lib": "^11.1.6",
     "prettier": "^3.3.3",
     "semantic-release": "^24.2.0",
     "tap": "^21.0.1"

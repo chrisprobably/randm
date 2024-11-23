@@ -2,7 +2,7 @@
 
 ![release](https://github.com/chrisprobably/randm/workflows/release/badge.svg) [![npm](https://img.shields.io/npm/v/randm)](https://www.npmjs.com/package/randm)
 
-Simple random number generator for JS / Typescript / Node.
+Easy to use JS random generator for generating random numbers, dice rolls, dates etc... Small footprint (<1Kb gzipped) library with Typescript support that can be used in a browser or node environment.
 
 ## Installation
 
