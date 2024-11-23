@@ -187,7 +187,7 @@ randm.diceRollOf("3d6+2").rolls();
 // }
 ```
 
-### Typsecript support
+### Typescript support
 
 randm comes bundled with a Typescript declaration file, it should be automatically picked up by your IDE. If not, you can find it at `node_modules/randm/randm.d.ts`.
 
