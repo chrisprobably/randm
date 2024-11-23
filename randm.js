@@ -21,6 +21,32 @@ const diceRollDetails = (die) => {
   };
 };
 
+class Bag {
+  constructor(contents) {
+    this._contents = contents?.length > 0 ? [...contents] : [];
+    this._original = [...this._contents];
+  }
+  put(item) {
+    this._contents.push(item);
+  }
+  pick() {
+    if (this._contents?.length > 0) {
+      const index = randm.int.between(0, this._contents.length - 1);
+      return this._contents.splice(index, 1)[0];
+    }
+    throw new Error("Cannot pick from an empty bag");
+  }
+  contents() {
+    return [...this._contents];
+  }
+  isEmpty() {
+    return this._contents?.length === 0;
+  }
+  reset() {
+    this._contents = [...this._original];
+  }
+}
+
 const randm = {
   any: () => Math.random(),
   bool: () => !!randm.int.between(0, 1),
@@ -53,6 +79,7 @@ const randm = {
   percentageChance: (percentage) =>
     randm.happens(Math.abs(percentage)).outOf(100),
   customDiceRoll: (die) => randm.diceRollOf(die).rolls().total,
+  bag: (contents) => new Bag(contents),
 };
 
 randm.int = {

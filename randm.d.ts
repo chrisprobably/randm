@@ -6,6 +6,14 @@ declare module "randm" {
     total: number;
   };
 
+  interface Bag {
+    put(item: any): void;
+    pick(): any;
+    contents(): ReadonlyArray<any>;
+    isEmpty(): boolean;
+    reset(): void;
+  }
+
   interface Randm {
     any(): number;
     bool(): boolean;
@@ -36,6 +44,7 @@ declare module "randm" {
     date: {
       between(x: Date, y: Date): Date;
     };
+    bag(contents?: any[]): Bag;
     next: {
       int: {
         between: {

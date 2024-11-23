@@ -81,6 +81,32 @@ yarn add randm
       // handle miss...
     }
     ```
+- `randm.bag(['Fire', 'Advance', 'Rally', 'Down', 'Ambush', 'Run'])` - simulates a bag containing the specified tokens / dice
+  - `bag.pick()` - picks an item at random and removes it from the bag
+  - `bag.contents()` - returns a copy of the current contents of the bag (note: modifying the returned array will not affect the underlying bag)
+  - `bag.put('Rally')` - adds the item `Rally` to the bag
+  - `bag.reset()` - resets the bag to its original state e.g. `['Fire', 'Advance', 'Rally', 'Down', 'Ambush', 'Run']`
+  - `bag.isEmpty()` - returns `true` if the bag is empty, otherwise `false`
+  - Example:
+    ```js
+    const bag = randm.bag([
+      "Fire",
+      "Advance",
+      "Rally",
+      "Down",
+      "Ambush",
+      "Run",
+    ]);
+    const pick = bag.pick(); // picks Advance
+    const remainingItems = bag.contents(); // ['Fire', 'Rally', 'Down', 'Ambush', 'Run']
+    bag.isEmpty(); // false
+    while (!bag.isEmpty()) bag.pick();
+    bag.isEmpty(); // true
+    bag.put("Fire");
+    bag.contents(); // ['Fire']
+    bag.reset();
+    bag.contents(); // ['Fire', 'Advance', 'Rally', 'Down', 'Ambush', 'Run']
+    ```
 
 ### Mocking
 
