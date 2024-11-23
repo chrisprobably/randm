@@ -669,3 +669,9 @@ t.test(
     t.end();
   }
 );
+
+t.test("calling pick on an empty randm.bag throws an error", function (t) {
+  const bag = randm.bag([]);
+  t.throws(() => bag.pick(), new Error("Cannot pick from an empty bag"));
+  t.end();
+});

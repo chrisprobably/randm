@@ -2,7 +2,7 @@
 
 ![release](https://github.com/chrisprobably/randm/workflows/release/badge.svg) [![npm](https://img.shields.io/npm/v/randm)](https://www.npmjs.com/package/randm)
 
-Simple random number generator for JS / Node.
+Simple random number generator for JS / Typescript / Node.
 
 ## Installation
 
@@ -181,6 +181,10 @@ randm.diceRollOf("3d6+2").rolls();
 //   total: 8
 // }
 ```
+
+### Typsecript support
+
+randm comes bundled with a Typescript declaration file, it should be automatically picked up by your IDE. If not, you can find it at `node_modules/randm/randm.d.ts`.
 
 ### Thankyou!
 
