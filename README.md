@@ -81,6 +81,11 @@ yarn add randm
       // handle miss...
     }
     ```
+
+### Bag
+
+Simulates a dice or token bag, where items are drawn from the bag at random.
+
 - `randm.bag(['Fire', 'Advance', 'Rally', 'Down', 'Ambush', 'Run'])` - simulates a bag containing the specified tokens / dice
   - `bag.pick()` - picks an item at random and removes it from the bag
   - `bag.contents()` - returns a copy of the current contents of the bag (note: modifying the returned array will not affect the underlying bag)
