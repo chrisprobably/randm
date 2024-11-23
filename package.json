@@ -19,6 +19,7 @@
     "README.md",
     "randm.js"
   ],
+  "types": "randm.d.ts",
   "devDependencies": {
     "prettier": "^3.3.3",
     "semantic-release": "^24.2.0",
