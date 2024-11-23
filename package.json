@@ -17,7 +17,8 @@
   "files": [
     "LICENSE",
     "README.md",
-    "randm.js"
+    "randm.js",
+    "randm.d.ts"
   ],
   "types": "randm.d.ts",
   "engines": {
