@@ -95,9 +95,11 @@ const resetMockedReturnValues = (mock) =>
 
 randm.next = {
   int: {},
+  bag: {},
   reset: () => {
     resetMockedReturnValues(randm.next);
     resetMockedReturnValues(randm.next.int);
+    resetMockedReturnValues(randm.next.bag);
   },
 };
 
@@ -115,8 +117,26 @@ const addMockingToFunctions = (obj, mock) => {
   });
 };
 
+const addMockingToFunctionsFromClass = (classPrototype, mock) => {
+  Object.getOwnPropertyNames(classPrototype).forEach((prop) => {
+    if (typeof classPrototype[prop] === "function" && prop !== "constructor") {
+      const originalFunc = classPrototype[prop];
+      mock[prop] = {
+        returnValues: [],
+        returns: (...vals) => (mock[prop].returnValues = [...vals]),
+      };
+      classPrototype[prop] = function (...args) {
+        return isMocked(mock, prop)
+          ? mockedValue(mock, prop)
+          : originalFunc.apply(this, args);
+      };
+    }
+  });
+};
+
 addMockingToFunctions(randm, randm.next);
 addMockingToFunctions(randm.int, randm.next.int);
+addMockingToFunctionsFromClass(Bag.prototype, randm.next.bag);
 
 randm.artilleryDie.MISS = "MISS";
 

@@ -51,6 +51,62 @@ declare module "randm" {
           returns(...vals: number[]): void;
         };
       };
+      any: {
+        returns(...vals: number[]): void;
+      };
+      bool: {
+        returns(...vals: boolean[]): void;
+      };
+      coinFlip: {
+        returns(...vals: ("heads" | "tails")[]): void;
+      };
+      dateTime: {
+        returns(...vals: Date[]): void;
+      };
+      diceRoll: {
+        returns(...vals: number[]): void;
+      };
+      diceRollBeats: {
+        returns(...vals: boolean[]): void;
+      };
+      diceRollOf: {
+        returns(...vals: DiceRollDetails[]): void;
+      };
+      artilleryDie: {
+        returns(...vals: (number | "MISS")[]): void;
+      };
+      scatterDie: {
+        returns(...vals: { direction: number; isHit: boolean }[]): void;
+      };
+      between: {
+        returns(...vals: number[]): void;
+      };
+      oneIn: {
+        returns(...vals: boolean[]): void;
+      };
+      from: {
+        returns<T>(...vals: T[]): void;
+      };
+      happens: {
+        returns(...vals: boolean[]): void;
+      };
+      percentageChance: {
+        returns(...vals: boolean[]): void;
+      };
+      customDiceRoll: {
+        returns(...vals: number[]): void;
+      };
+      bag: {
+        pick: {
+          returns(...vals: any[]): void;
+        };
+        contents: {
+          returns(...vals: ReadonlyArray<any>[]): void;
+        };
+        isEmpty: {
+          returns(...vals: boolean[]): void;
+        };
+      };
       reset(): void;
     };
   }
