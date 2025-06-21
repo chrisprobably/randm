@@ -80,11 +80,22 @@ const randm = {
     randm.happens(Math.abs(percentage)).outOf(100),
   customDiceRoll: (die) => randm.diceRollOf(die).rolls().total,
   bag: (contents) => new Bag(contents),
+  shuffle: (arry) => {
+    let cpy;
+    try {
+      cpy = [...arry];
+    } catch (e) {
+      return arry;
+    }
+    for (let i = cpy.length - 1; i > 0; i--) {
+      const j = randm.int.between(0, i);
+      [cpy[i], cpy[j]] = [cpy[j], cpy[i]];
+    }
+    return cpy;
+  },
 };
 
-randm.int = {
-  between: (x, y) => Math.round(randm.any() * (y - x)) + x,
-};
+randm.int = { between: (x, y) => Math.round(randm.any() * (y - x)) + x };
 
 randm.date = {
   between: (x, y) => new Date(randm.int.between(x.getTime(), y.getTime())),
