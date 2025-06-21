@@ -7,6 +7,7 @@ t.beforeEach(() => {
 
 t.test("randm.shuffle randomly re-orders an array of numbers", function (t) {
   const orig = [1, 2, 3, 4];
+  randm.next.int.between.returns(2, 1, 0); // force a random order
   const shuffled = randm.shuffle(orig);
   console.log("randm.shuffle([1, 2, 3, 4])", shuffled);
   t.notSame(orig, shuffled);
@@ -15,6 +16,7 @@ t.test("randm.shuffle randomly re-orders an array of numbers", function (t) {
 
 t.test("randm.shuffle randomly re-orders an array of strings", function (t) {
   const orig = ["a", "b", "c", "d"];
+  randm.next.int.between.returns(2, 1, 0); // force a random order
   const shuffled = randm.shuffle(orig);
   console.log('randm.shuffle(["a", "b", "c", "d"])', shuffled);
   t.notSame(orig, shuffled);
@@ -26,10 +28,12 @@ t.test("randm.shuffle randomly re-orders an array of objects", function (t) {
     { a: 1, b: "so" },
     { a: 2, b: "huh" },
     { a: 3, b: "wo" },
+    { a: 4, b: "ge" },
   ];
+  randm.next.int.between.returns(2, 1, 0); // force a random order
   const shuffled = randm.shuffle(orig);
   console.log(
-    'randm.shuffle([{ a: 1, b: "so" }, { a: 2, b: "huh" }, { a: 3, b: "wo" }])',
+    'randm.shuffle([{ a: 1, b: "so" }, { a: 2, b: "huh" }, { a: 3, b: "wo" }, { a: 4, b: "ge" }])',
     shuffled
   );
   t.notSame(orig, shuffled);
@@ -38,6 +42,7 @@ t.test("randm.shuffle randomly re-orders an array of objects", function (t) {
 
 t.test("randm.shuffle randomly re-orders a string", function (t) {
   const orig = "Hello";
+  randm.next.int.between.returns(2, 1, 0); // force a random order
   const shuffled = randm.shuffle(orig);
   console.log("randm.shuffle('Hello')", shuffled);
   t.notSame(orig, shuffled);
@@ -58,6 +63,7 @@ t.test(
 
 t.test("randm.shuffle does not mutate the passed array", function (t) {
   const orig = [1, 2, 3, 4];
+  randm.next.int.between.returns(2, 1, 0); // force a random order
   const shuffled = randm.shuffle(orig);
   t.notSame(orig, shuffled);
   t.same(orig, [1, 2, 3, 4]);
